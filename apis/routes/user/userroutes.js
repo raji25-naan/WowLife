@@ -15,7 +15,7 @@ const catch_error = fn => (req, res, next) => Promise.resolve(fn(req, res, next)
 router.post("/signup",
  checkRequestBodyParams("phone"),
  validateRequest,
-signup
+ catch_error(signup)
 
 );
 
@@ -25,12 +25,12 @@ checkRequestBodyParams("userName"),
  checkRequestBodyParams("Email"),
  checkRequestBodyParams("Gender"),
 validateRequest,
-login);
+catch_error(login));
 
 router.post("/verifyOtp",
 checkRequestBodyParams("otp"),
 validateRequest,
-verifyOtp
+catch_error(verifyOtp)
 )
 
 

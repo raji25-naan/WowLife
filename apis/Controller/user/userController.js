@@ -61,7 +61,7 @@ exports.signup = async(req,res,next)=>{
             message:"please enter the valid mobile number"
         })
     }
-        
+
     const findData = await Users.findOne({phone:phone});
     let otp = Math.floor(1000 + Math.random() * 9000);
         Twilio.sendOtp(otp, country_code + phone);
@@ -116,4 +116,5 @@ exports.verifyOtp = async(req,res,next)=>{
         })
     }
 
+}
 }

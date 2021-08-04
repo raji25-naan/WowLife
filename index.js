@@ -8,6 +8,7 @@ var cors = require("cors");
 var CronJob = require("node-cron")
 
 var UserRouter = require("./apis/routes/user/userroutes")
+var OwnerRouter = require("./apis/routes/owner/OwnerRouter")
 
 
 //app.use(timeout("20s"));
@@ -17,7 +18,9 @@ app.use(cors());
 app.use(bodyParser.json({limit:"50mb"}));
 
 let userRoutes = [].concat(UserRouter)
+let OwnerRoutes = [].concat(OwnerRouter)
 app.use("/api/user",userRoutes);
+app.use("/api/owner",OwnerRoutes)
 app.use(bodyParser.urlencoded({
     limited:"50mb",
     extended:true,
