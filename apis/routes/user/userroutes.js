@@ -20,7 +20,7 @@ router.post("/signup",
 );
 
 
-router.post("/login",
+router.post("/Login",
 checkRequestBodyParams("userName"),
  checkRequestBodyParams("Email"),
  checkRequestBodyParams("Gender"),
@@ -31,7 +31,7 @@ router.post("/verifyOtp",
 checkRequestBodyParams("otp"),
 validateRequest,
 catch_error(verifyOtp)
-)
+);
 
 
 module.exports = router;

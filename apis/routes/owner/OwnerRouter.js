@@ -20,7 +20,8 @@ const {
 
 );
 
-router.post("/login",
+router.post("/Login",
+
 checkRequestBodyParams("userName"),
  checkRequestBodyParams("Email"),
  checkRequestBodyParams("Gender"),

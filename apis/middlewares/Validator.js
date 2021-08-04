@@ -13,7 +13,7 @@ const validateRequest = (req,res,next)=>{
         success:false,
         message:ExtractedErrors[0],
     })
-};
+}
 const checkRequestBodyParams = (val)=>{
     return check(val,ErrorMessage.general).isLength({min:1})
     .trim()
