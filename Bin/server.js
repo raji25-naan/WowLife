@@ -11,8 +11,8 @@ dotenv.config({path:"./dev.env"});
  */
 
  const hostname = "localhost";
- const port = 7000; //normalizePort(process.env.PORT || '3000');
- app.set("port", port);
+ const port = 3000; //normalizePort(process.env.PORT || '3000');
+ index.set("port", port);
 
 
  /**
@@ -25,8 +25,8 @@ dotenv.config({path:"./dev.env"});
 
 
   server.listen(port,hostname,()=>{
-      debug(`Server running on https://${hostname}:${port}/`);
-      console.log(`Server running on https://${hostname}:${port}/`)
+      debug(`Server running on http://${hostname}:${port}/`);
+      console.log(`Server running on http://${hostname}:${port}/`)
   })
 
 
@@ -34,7 +34,7 @@ dotenv.config({path:"./dev.env"});
   server.on("listening",onListening)
 
 
-  function normalizeport(value){
+  function normalizePort(value){
       var port = parseInt(val,10);
 
       if(isNaN(port)){
