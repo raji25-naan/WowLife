@@ -51,8 +51,6 @@ exports.login = async(req,res,next)=>{
     }
 }
 }
-}
-
 
 exports.signup = async(req,res,next)=>{
     let country_code = req.body.country_code;
