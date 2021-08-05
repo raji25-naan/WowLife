@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-module.exports.checksession = async(req,res,next)=>{
+module.exports.checkSession = async(req,res,next)=>{
     const token = req.headers["token"];
     if(token){
         const headerType = token.split("")[0];

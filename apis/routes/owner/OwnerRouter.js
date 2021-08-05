@@ -22,9 +22,9 @@ const {
 
 router.post("/Login",
 
-checkRequestBodyParams("userName"),
+checkRequestBodyParams("Name"),
  checkRequestBodyParams("Email"),
- checkRequestBodyParams("Gender"),
+ checkRequestBodyParams("phone"),
 validateRequest,
 catch_error(login));
 

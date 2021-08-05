@@ -1,7 +1,8 @@
 const express = require("express");
 const { oneOf } = require("express-validator");
 const{signup,login,verifyOtp} = require("../../Controller/user/userController")
-const { checkSession } = require("../../middlewares/checkAuth");
+ //const { checkIsactive } = require("../../middlewares/checkActive")
+ const { checkSession } = require("../../middlewares/checkAuth")
 const router = express.Router();
 const {
     checkRequestBodyParams,
@@ -12,12 +13,10 @@ const {
 const catch_error = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 
-router.post("/signup",
+router.post("/Signup",
  checkRequestBodyParams("phone"),
  validateRequest,
- catch_error(signup)
-
-);
+ catch_error(signup));
 
 
 router.post("/Login",
@@ -28,8 +27,11 @@ validateRequest,
 catch_error(login));
 
 router.post("/verifyOtp",
+ //checkSession,
+ //checkIsactive,
 checkRequestBodyParams("otp"),
 validateRequest,
+
 catch_error(verifyOtp)
 );
 

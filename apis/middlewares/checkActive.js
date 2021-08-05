@@ -12,7 +12,7 @@ module.exports.checkIsactive = async(req,res,next)=>{
             let user_id = decodedId.user_id;
 
             //checkActive
-            const checkActive = await User.findOne({_id:user_id ,isActive:true}).exec();
+            const checkActive = await User.findOne({_id:user_id}).exec();
             if(checkActive){
                 req["user_id"] = user_id;
             next();
