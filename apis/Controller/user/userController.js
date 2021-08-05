@@ -11,19 +11,19 @@ const jwt = require("jsonwebtoken");
 exports.signup = async(req,res,next)=>{
     
         let country_code = req.body.country_code;
-      let phone = req.body.phone;
+      let {phone,user_id} = req.body
         if(phone.length !=10){
             return res.json({
                 success:false,
                 message:"please enter the valid mobile number"
             })
         }
-        const findData = await Users.findOne({phone:phone});
+        const findData = await Users.findOne({$or:[{phone:phone},{_id:user_id}]});
         let otp = Math.floor(1000 + Math.random() * 9000);
             Twilio.sendOtp(otp, country_code + phone);
             console.log(otp)
     
-            if(!findData){
+            if(!findData ){
                 console.log(2)
                 const  data ={
                     phone: phone,
@@ -36,12 +36,13 @@ exports.signup = async(req,res,next)=>{
                 return res.json({
                     success: true,
                     OTP: saveData,
-                    token:token,
                     message:"OTP sent successfully to your mobile number "
                   });
                 }else{
-                    const UserData = await Users.findOneAndUpdate({phone:phone},{
+                    const UserData = await Users.findOneAndUpdate({$or:[{phone:phone},{_id:user_id}]},
+                    {
                         $set: {
+                            phone:phone,
                             otp:otp
                         }
                     },{ new: true })
@@ -224,4 +225,27 @@ console.log(1)
 
   }
 }
+
+
+exports.changePhone = async(req,res,next)=>{
+  const {user_id}= req.body;
+  console.log(user_id)
+  const updatePhone = await Users.findByIdAndUpdate({_id:user_id},
+    {$set:{
+      phone:" ",
+    otp:""}
+    },{new:true})
+  if(updatePhone){
+    return res.json({
+      success:true,
+      Data:updatePhone,
+      message:"phone number changed"
+    })
+  }
+else{
+  return res.json({
+    success:false,
+    message:"Error Occured!"
+  })
+}}
 
