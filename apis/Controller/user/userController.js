@@ -70,6 +70,7 @@ exports.verifyOtp = async(req,res,next)=>{
             success:true,
             message:"otp verified successfully"
         })
+        
     }else{
         return res.json({
             success:false,
