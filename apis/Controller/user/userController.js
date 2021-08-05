@@ -142,5 +142,86 @@ exports.login = async(req,res,next)=>{
 }
 
 
+exports.uploadPhoto = async (req, res, next) => {
+    console.log(1)
+    const file = req.files.photo;
+    const user_id = req.body.user_id;
+    if (file.mimetype == "image/jpeg" || file.mimetype == "image/png") {
+      file.mv("./profile_avatar/" + file.name, async function (err, result) {
+        if (err) throw err;
+        const getUserInfoAndUpdate = await Users.findByIdAndUpdate(
+          { _id: user_id },
+          {
+            $set: { avatar: file.name },
+          },
+          { new: true }
+        );
+        if (getUserInfoAndUpdate) {
+          res.send({
+            success: true,
+            message: file.name
+          });
+        }
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: "Only jpeg and png are accepted "
+      });
+    }
+  };
 
+
+exports.EditProfile = async(req,res,next)=>{
+      const user_id = req.body.user_id;
+      console.log(user_id)
+      const {Email,Gender,userName} = req.body;
+      if(req.body.Email){
+        const validEmail = emailValidator.validate(Email);
+        console.log(validEmail)
+        if(!validEmail){
+            return res.json({
+                success:false,
+                message:"please enter the valid email"
+            })
+        }
+        const userInfo = await Users.findOne({ Email: Email });
+        console.log(userInfo)
+        if (userInfo) {
+          return res.json({
+              success: false,
+              message: "Email already registered!"
+            });
+          }
+        
+        else{
+console.log(1)
+  const saveData = await Users.findByIdAndUpdate({_id:user_id},
+    {
+        $set: {
+          Email:Email,
+          Gender:Gender,
+          userName:userName
+        }
+    },{new:true},
+    )
+    console.log(saveData)
+    if(saveData){
+
+        return res.json({
+            success:true,
+            Data:saveData,
+            messsage:"Profile edited successfully"
+        })
+    }
+    else{
+        return res.json({
+            success:false,
+            message:"error occured! try again"
+        })
+    }
+  }
+
+  }
+}
 

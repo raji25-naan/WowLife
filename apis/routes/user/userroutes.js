@@ -1,6 +1,6 @@
 const express = require("express");
 const { oneOf } = require("express-validator");
-const{signup,login,verifyOtp} = require("../../Controller/user/userController")
+const{signup,login,verifyOtp,uploadPhoto,EditProfile} = require("../../Controller/user/userController")
  //const { checkIsactive } = require("../../middlewares/checkActive")
  const { checkSession } = require("../../middlewares/checkAuth")
 const router = express.Router();
@@ -34,6 +34,24 @@ validateRequest,
 
 catch_error(verifyOtp)
 );
+
+
+router.post(
+  "/uploadPhoto",
+  checkSession,
+  // checkIsactive,
+  uploadPhoto
+);
+
+
+router.post("/EditProfile",
+//checkSession,
+//checkIsactive,
+
+EditProfile)
+
+
+
 
 
 module.exports = router;
